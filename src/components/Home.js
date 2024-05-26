@@ -12,6 +12,9 @@ export default function Home() {
         <Button type="text">
           <Link to="/addTodo">Agregar tarea</Link>
         </Button>
+        <Button type="text">
+          <Link to="/api">api</Link>
+        </Button>
       </div>
     </div>
   );
