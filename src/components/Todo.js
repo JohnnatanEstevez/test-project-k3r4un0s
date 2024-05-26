@@ -7,26 +7,19 @@ import {
   TableRow,
 } from "@mui/material";
 
-const todoData = {
-  title: "titulo 1",
-  description: "descriptoin 1",
-  expiryDate: "11/23/2025",
-  done: "false",
-  notes: "estas son las notas",
-};
-
-export default function Todo() {
+export default function Todo({ todo }) {
+  console.log(todo);
   return (
     <>
       <TableBody>
-        <TableRow>
-          <TableCell align="center">{todoData.title}</TableCell>
-          <TableCell align="center">{todoData.description}</TableCell>
-          <TableCell align="center">{todoData.expiryDate}</TableCell>
+        <TableRow key={todo.name}>
+          <TableCell align="center">{todo.title}</TableCell>
+          <TableCell align="center">{todo.description}</TableCell>
+          <TableCell align="center">{todo.expiryDate}</TableCell>
           <TableCell align="center">
-            <Checkbox size="small" />
+            <Checkbox size="small" checked={todo.done} />
           </TableCell>
-          <TableCell align="center">{todoData.notes}</TableCell>
+          <TableCell align="center">{todo.notes}</TableCell>
           <TableCell align="center">
             <ButtonGroup>
               <Button>edit</Button>
