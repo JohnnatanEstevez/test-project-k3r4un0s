@@ -7,19 +7,10 @@ import {
   TableRow,
 } from "@mui/material";
 import Todo from "./Todo";
-import { useEffect, useState } from "react";
-
+import { useContext } from "react";
+import { CreateTodoContext } from "../context/CreateTodoContext";
 export default function TodoList() {
-  const [todos, setTodos] = useState([]);
-
-  useEffect(() => {
-    async function getTodos() {
-      const response = await fetch("/db.json");
-      const json = await response.json();
-      setTodos(json);
-    }
-    getTodos();
-  }, []);
+  const { todos } = useContext(CreateTodoContext);
 
   return (
     <>

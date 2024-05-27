@@ -11,7 +11,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { Link } from "react-router-dom";
 export default function Todo({ todo }) {
-  console.log(todo);
   return (
     <>
       <TableBody>
