@@ -3,14 +3,14 @@
     "title": "titulo 1",
     "description": "descriptoin 1",
     "expiryDate": "11/23/2025",
-    "done": false,
+    "done": true,
     "notes": "estas son las notas de la tarea 1"
   },
   {
     "title": "titulo 2",
     "description": "descriptoin 2",
     "expiryDate": "11/09/2025",
-    "done": false,
+    "done": true,
     "notes": "estas son las notas de la tarea 2"
   },
   {

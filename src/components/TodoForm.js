@@ -1,6 +1,10 @@
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
+import { useContext } from "react";
+import { CreateTodoContext } from "../context/CreateTodoContext";
+
 const todoFormSchema = yup.object().shape({
   title: yup.string().required("El titulo es requerido"),
   description: yup.string().required("La descrición es requerida"),
@@ -9,6 +13,7 @@ const todoFormSchema = yup.object().shape({
 });
 
 export default function TodoForm() {
+  const { setTodos } = useContext(CreateTodoContext);
   return (
     <div>
       <Formik
@@ -19,8 +24,18 @@ export default function TodoForm() {
           notes: "",
         }}
         validationSchema={todoFormSchema}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={(values, { resetForm }) => {
+          setTodos((state) => [
+            ...state,
+            {
+              title: values.title,
+              description: values.description,
+              expiryDate: values.expiryDate,
+              done: false,
+              notes: values.notes,
+            },
+          ]);
+          resetForm();
         }}
       >
         {({ handleSubmit, handleChange, values, errors, touched }) => (
@@ -84,14 +99,21 @@ export default function TodoForm() {
                   />
                 </Grid>
               </Grid>
-
-              <Button type="submit" onSubmit={handleSubmit}>
-                Agregar
-              </Button>
+              <Typography align="center">
+                <Button type="submit" onSubmit={handleSubmit}>
+                  Agregar
+                </Button>
+              </Typography>
             </Form>
           </Container>
         )}
       </Formik>
+
+      <Typography align="center">
+        <Link to="/" align="center">
+          <Button align="center">Home</Button>
+        </Link>
+      </Typography>
     </div>
   );
 }

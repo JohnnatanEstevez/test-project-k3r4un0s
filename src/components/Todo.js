@@ -1,44 +1,56 @@
-import {
-  Button,
-  ButtonGroup,
-  Checkbox,
-  TableBody,
-  TableCell,
-  TableRow,
-} from "@mui/material";
+import { Button, ButtonGroup, Checkbox, FormControlLabel } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Tooltip from "@mui/material/Tooltip";
+
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { Link } from "react-router-dom";
-export default function Todo({ todo }) {
+export default function Todo({
+  todo,
+  StyledTableRow,
+  StyledTableCell,
+  onEdit,
+  onDelete,
+  handleChange,
+}) {
   return (
     <>
-      <TableBody>
-        <TableRow key={todo.title}>
-          <TableCell align="center">{todo.title}</TableCell>
-          <TableCell align="center">{todo.description}</TableCell>
-          <TableCell align="center">{todo.expiryDate}</TableCell>
-          <TableCell align="center">
-            <Checkbox size="small" checked={todo.done} />
-          </TableCell>
-          <TableCell align="center">{todo.notes}</TableCell>
-          <TableCell align="center">
-            <ButtonGroup>
-              <Button>
+      <StyledTableRow key={todo.title}>
+        <StyledTableCell align="center" component="th" scope="row">
+          {todo.title}
+        </StyledTableCell>
+        <StyledTableCell align="center">{todo.description}</StyledTableCell>
+        <StyledTableCell align="center">{todo.expiryDate}</StyledTableCell>
+        <StyledTableCell align="center">
+          <FormControlLabel
+            control={<Checkbox checked={todo.done} color="success" />}
+            onChange={handleChange}
+          />
+        </StyledTableCell>
+        <StyledTableCell align="center">{todo.notes}</StyledTableCell>
+        <StyledTableCell align="center">
+          <ButtonGroup>
+            <Tooltip title="Editar">
+              <Button onClick={onEdit}>
                 <EditIcon fontSize="small" />
               </Button>
-              <Button>
+            </Tooltip>
+
+            <Tooltip title="Delete">
+              <Button onClick={onDelete}>
                 <DeleteIcon fontSize="small" />
               </Button>
-              <Button>
-                <Link to={`/details/${todo.title}`}>
+            </Tooltip>
+            <Tooltip title="Ver detalles">
+              <Link to={`/details/${todo.title}`}>
+                <Button>
                   <RemoveRedEyeIcon fontSize="small" />
-                </Link>
-              </Button>
-            </ButtonGroup>
-          </TableCell>
-        </TableRow>
-      </TableBody>
+                </Button>
+              </Link>
+            </Tooltip>
+          </ButtonGroup>
+        </StyledTableCell>
+      </StyledTableRow>
     </>
   );
 }

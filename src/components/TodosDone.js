@@ -1,6 +1,4 @@
 import {
-  Typography,
-  Button,
   Paper,
   Table,
   TableCell,
@@ -10,12 +8,13 @@ import {
   TableRow,
   tableCellClasses,
   styled,
+  Typography,
+  Button,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-
-import Todo from "./Todo";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { CreateTodoContext } from "../context/CreateTodoContext";
+import { Link } from "react-router-dom";
+import Todo from "./Todo";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -37,24 +36,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function TodoList() {
-  const { todos, setTodos } = useContext(CreateTodoContext);
-  const [editRow, setEditRow] = useState(null);
+export default function TodosDone() {
+  const { todos } = useContext(CreateTodoContext);
 
-  const handleEditStart = (editRow) => {
-    setEditRow(editRow);
-    console.log(editRow);
-  };
-  const handleDelete = (deleteIndex) => {
-    setTodos((todos) => todos.filter((_, index) => index !== deleteIndex));
-  };
-  const handleChange = ({ target: todo }) => {
-    setEditRow((prevEditRow) => ({ ...prevEditRow, title: todo.title }));
-  };
-
+  const todosDoneFilter = todos.filter((todo) => todo.done === true);
+  console.log(todosDoneFilter);
   return (
     <>
-      <h1 align="center">Lista de tareas</h1>
+      <Typography align="center">Lista de tareas realizadas</Typography>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="customized table">
           <TableHead>
@@ -70,28 +59,14 @@ export default function TodoList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {todos.map((todo, index) =>
-              todo.title === editRow?.title ? (
-                <Todo
-                  key={editRow.title}
-                  todo={editRow}
-                  StyledTableRow={StyledTableRow}
-                  StyledTableCell={StyledTableCell}
-                  onEdit={() => handleEditStart(editRow)}
-                  onDelete={() => handleDelete(index)}
-                  onChange={handleChange}
-                />
-              ) : (
-                <Todo
-                  key={todo.title}
-                  todo={todo}
-                  StyledTableRow={StyledTableRow}
-                  StyledTableCell={StyledTableCell}
-                  onEdit={() => handleEditStart(todo)}
-                  onDelete={() => handleDelete(index)}
-                />
-              )
-            )}
+            {todosDoneFilter.map((todo) => (
+              <Todo
+                key={todo.title}
+                todo={todo}
+                StyledTableRow={StyledTableRow}
+                StyledTableCell={StyledTableCell}
+              />
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

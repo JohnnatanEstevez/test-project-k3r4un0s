@@ -13,7 +13,7 @@ export default function StateTodosContext({ children }) {
     getTodos();
   }, []);
   return (
-    <CreateTodoContext.Provider value={{ todos }}>
+    <CreateTodoContext.Provider value={{ todos, setTodos }}>
       {children}
     </CreateTodoContext.Provider>
   );
